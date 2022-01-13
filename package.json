@@ -1,0 +1,30 @@
+{
+  "dependencies": {
+    "express": "^4.17.2",
+    "nodemon": "^2.0.15",
+    "postgres": "^1.0.2",
+    "postgresql": "^0.0.1"
+  },
+  "name": "qasdc",
+  "description": "JD's Repository",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon -server",
+    "drop": "dropdb 'Q&A'",
+    "create": "createdb 'Q&A' && psql jdcorral -h 127.0.0.1 -d Q&A -f ./Q&A.sql",
+    "copy": "psql jdcorral -h 127.0.0.1 -d Q&A -f ./copyData.sql",
+    "initialize": "npm run drop && npm run create && npm run copy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Encantadore-Antonio/QASDC.git"
+  },
+  "author": "JD",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Encantadore-Antonio/QASDC/issues"
+  },
+  "homepage": "https://github.com/Encantadore-Antonio/QASDC#readme"
+}
