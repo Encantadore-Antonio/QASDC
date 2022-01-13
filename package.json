@@ -11,10 +11,10 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon -server",
-    "drop": "dropdb 'Q&A'",
-    "create": "createdb 'Q&A' && psql jdcorral -h 127.0.0.1 -d Q&A -f ./Q&A.sql",
-    "copy": "psql jdcorral -h 127.0.0.1 -d Q&A -f ./copyData.sql",
+    "start": "nodemon ./server/index.js",
+    "drop": "dropdb 'questionsAnswers'",
+    "create": "createdb 'questionsAnswers' && psql jdcorral -h 127.0.0.1 -d 'questionsAnswers' -f ./db/questionsAnswers.sql",
+    "copy": "psql jdcorral -h 127.0.0.1 -d questionsAnswers -f ./db/copyData.sql",
     "initialize": "npm run drop && npm run create && npm run copy"
   },
   "repository": {
