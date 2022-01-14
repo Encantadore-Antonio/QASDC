@@ -4,7 +4,37 @@ module.exports = {
   test: async function(id) {
     try {
       const tables = await sql`
-        SELECT q.body as question_body, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported, json_agg(json_build_object('body', a.body, 'id', a.id, 'answerer_name', a.answerer_name, 'helpfulness', a.helpful, 'photos', ap.url)) as answers
+      SELECT q.body as question_body, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported
+      FROM questions q
+      WHERE q.product_id = ${id}
+      limit 5;
+        `
+      //console.log(tables);
+      for(var i = 0; i < tables.length; i++) {
+        const answers = await sql`
+        SELECT a.body, a.id , a.date_written as date, a.answerer_name, a.helpful as helpfulness, json_agg(ap.url) as photos
+        FROM answers a
+        LEFT OUTER JOIN answers_photos ap
+        ON a.id = ap.answer_id
+        where a.question_id = ${id}
+        GROUP BY a.body, a.id, a.date_written, a.answerer_name, a.helpful
+        limit 5
+        `
+        tables[i].answers = {};
+        for(var k = 0; k < answers.length; k++) {
+          tables[i].answers[answers[k].id] = answers[k];
+        }
+      }
+
+      return {product_id: id, results: tables};
+    }
+    catch (err) {
+      console.error(err);
+    }
+  }
+}
+
+/*SELECT q.body as question_body, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported, json_agg(json_build_object('body', a.body, 'id', a.id, 'answerer_name', a.answerer_name, 'helpfulness', a.helpful, 'photos', ap.url, 'photo_id', ap.id, 'answer_id', ap.answer_id )) as answers
         FROM questions q
         LEFT OUTER JOIN answers a
         ON q.id = a.question_id
@@ -13,12 +43,4 @@ module.exports = {
         WHERE q.id = ${id}
         group by q.body, q.id, q.asker_name, q.helpful, q.reported
         limit 10;
-        `
-      //console.log(tables);
-      return tables;
-    }
-    catch (err) {
-      console.error(err);
-    }
-  }
-}
+        */
