@@ -4,7 +4,7 @@ module.exports = {
   test: async function() {
     try {
       const tables = await sql`
-        SELECT id FROM answers_photos limit 10;`
+        SELECT url FROM answers_photos limit 10;`
       console.log(tables);
     }
     catch (err) {

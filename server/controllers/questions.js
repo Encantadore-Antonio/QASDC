@@ -3,6 +3,15 @@ const model = require('../models');
 module.exports = {
   get: function(req, res) {
     console.log("It's working");
-    model.questions.test();
+    var test;
+    //console.log(req.headers.product_id);
+    model.questions.test(req.headers.product_id)
+      .then((data) => {
+        console.log(data);
+        res.send(data);
+        test = data;
+        console.log("DATA ", test)
+      })
+
   }
 }

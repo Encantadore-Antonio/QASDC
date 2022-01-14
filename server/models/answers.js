@@ -7,6 +7,7 @@ module.exports = {
         SELECT body FROM answers limit 5
         `
       console.log(tables);
+      return tables;
     }
     catch (err) {
       console.error(err);
