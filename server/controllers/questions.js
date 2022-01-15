@@ -14,9 +14,12 @@ module.exports = {
       })
   },
   put: function(req, res) {
-
     model.questions.put(req.params.question_id);
     res.end();
 
+  },
+  report: function(req, res) {
+    model.questions.report(req.params.question_id);
+    res.end();
   }
 }

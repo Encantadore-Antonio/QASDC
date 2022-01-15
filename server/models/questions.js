@@ -45,6 +45,20 @@ module.exports = {
     catch (err) {
       console.error(err);
     }
+  },
+  report: async function(id) {
+    try {
+      const report = await sql`UPDATE questions
+      SET reported = true
+      WHERE id = ${id}
+      RETURNING reported
+      ;
+      `
+      console.log("REPORTED ", report);
+    }
+    catch (err) {
+      console.error(err);
+    }
   }
 
 }
