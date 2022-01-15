@@ -12,6 +12,11 @@ module.exports = {
         test = data;
         console.log("DATA ", test)
       })
+  },
+  put: function(req, res) {
+
+    model.questions.put(req.params.question_id);
+    res.end();
 
   }
 }

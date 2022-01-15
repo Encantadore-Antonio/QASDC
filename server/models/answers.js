@@ -32,5 +32,19 @@ module.exports = {
     catch (err) {
       console.error(err);
     }
+  },
+  put: async function(id) {
+    try {
+      const update = await sql`UPDATE answers
+      SET helpful = helpful + 1
+      WHERE id = ${id}
+      RETURNING helpful
+      ;
+      `
+      console.log("UPDATED", update);
+    }
+    catch (err) {
+      console.error(err);
+    }
   }
 }

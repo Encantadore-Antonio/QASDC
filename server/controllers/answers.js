@@ -8,5 +8,9 @@ module.exports = {
         //console.log(data);
         res.send({results: data});
       })
+  },
+  put: function(req, res) {
+    model.answers.put(req.params.answer_id)
+    res.end();
   }
 }

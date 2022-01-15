@@ -4,9 +4,9 @@ module.exports = {
   test: async function(id) {
     try {
       const tables = await sql`
-      SELECT q.body as question_body, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported
+      SELECT q.body as question_body, q.date_written as question_date, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported
       FROM questions q
-      WHERE q.product_id = ${id}
+      WHERE q.product_id = ${id} AND q.reported = false
       limit 5;
         `
       //console.log(tables);
@@ -31,7 +31,22 @@ module.exports = {
     catch (err) {
       console.error(err);
     }
+  },
+  put: async function(id) {
+    try {
+      const update = await sql`UPDATE questions
+      SET helpful = helpful + 1
+      WHERE id = ${id}
+      RETURNING helpful
+      ;
+      `
+      console.log("UPDATED", update);
+    }
+    catch (err) {
+      console.error(err);
+    }
   }
+
 }
 
 /*SELECT q.body as question_body, q.id as question_id, q.asker_name as asker_name, q.helpful as question_helpfulness, q.reported as reported, json_agg(json_build_object('body', a.body, 'id', a.id, 'answerer_name', a.answerer_name, 'helpfulness', a.helpful, 'photos', ap.url, 'photo_id', ap.id, 'answer_id', ap.answer_id )) as answers
