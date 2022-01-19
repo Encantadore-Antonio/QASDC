@@ -1,7 +1,7 @@
 DROP TABLE IF EXISTS answers;
 
 CREATE TABLE answers(
-id int,
+id integer,
 question_id integer,
 body text,
 date_written bigint,
@@ -13,21 +13,21 @@ helpful int);
 DROP TABLE IF EXISTS questions;
 
 CREATE TABLE questions(
-id int,
+id integer,
 product_id integer,
 body text,
 date_written bigint,
 asker_name text,
 asker_email text,
 reported boolean,
-helpful int
+helpful integer
 
 );
 
 DROP TABLE IF EXISTS answers_photos;
 
 CREATE TABLE answers_photos(
-  id int,
-  answer_id int,
+  id integer,
+  answer_id integer,
   url text
 );

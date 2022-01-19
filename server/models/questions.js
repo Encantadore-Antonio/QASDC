@@ -59,6 +59,24 @@ module.exports = {
     catch (err) {
       console.error(err);
     }
+  },
+  post: async function(data) {
+    try{
+      const {body, name, email, product_id} = data;
+      const date = Date.now();
+      const newID = await sql `SELECT id FROM questions ORDER BY id DESC limit 1`;
+      newID.id++;
+      console.log(newID);
+      const insert = await sql`INSERT INTO questions (id, body, asker_name, asker_email, product_id, date_written, helpful, reported)
+      VALUES ( ${newID.id}, ${body}, ${name}, ${email}, ${product_id}, ${date}, 0, false)
+      RETURNING *
+      `
+      console.log("INSERTED ", insert);
+
+    }
+    catch (err) {
+      console.error(err);
+    }
   }
 
 }

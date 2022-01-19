@@ -1,15 +1,15 @@
 COPY questions
-FROM '/Users/jdcorral/Downloads/SDC-CVS/questions.csv'
+FROM '/Users/jdcorral/Documents/work/SDC/QASDC/questions.csv'
 DELIMITER ','
 CSV HEADER;
 
 COPY answers
-FROM '/Users/jdcorral/Downloads/SDC-CVS/answers.csv'
+FROM '/Users/jdcorral/Documents/work/SDC/QASDC/answers.csv'
 DELIMITER ','
 CSV HEADER;
 
 
 COPY answers_photos
-FROM '/Users/jdcorral/Downloads/SDC-CVS/answers_photos.csv'
+FROM '/Users/jdcorral/Documents/work/SDC/QASDC/answers_photos.csv'
 DELIMITER ','
 CSV HEADER;
